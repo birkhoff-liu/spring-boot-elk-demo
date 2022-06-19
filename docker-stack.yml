@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+
+  sample:
+    image: test/test
+    networks:
+      - proxy
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=proxy"
+        - "traefik.frontend.rule=Host:sample.test"
+        - "traefik.port=8888"
+
+networks:
+  proxy:
+    external: true
